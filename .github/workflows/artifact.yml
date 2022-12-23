@@ -14,9 +14,10 @@ jobs:
           echo "hello" > test.txt
           date >> test.txt
       - name: replace file
-        run: | 
+        run: |  
+                ls -la build/html/
                 rm build/html/*
-                cp test.txt html/build/
+                cp test.txt build/html/
           #      - name: Archive production artifacts
           #        uses: actions/upload-artifact@v3
           #        with:
