@@ -15,7 +15,7 @@ jobs:
           date >> test.txt
       - name: replace file
         run: | 
-                rm html/build/*
+                rm build/html/*
                 cp test.txt html/build/
           #      - name: Archive production artifacts
           #        uses: actions/upload-artifact@v3
