@@ -23,3 +23,10 @@ jobs:
         with:
           name: code-test
           path: output/test/hello.txt
+      - name: git push
+        run: |
+                git config --global user.name "${GITHUB_ACTOR}"
+                git config --global user.email "${GITHUB_ACTOR}"
+                git add .
+                git commit -m "action update"
+                git push
