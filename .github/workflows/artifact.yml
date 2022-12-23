@@ -12,12 +12,12 @@ jobs:
         run: |
           touch test.txt
           echo "hello" > test.txt
+          date >> test.txt
       - name: Archive production artifacts
         uses: actions/upload-artifact@v3
         with:
           name: test-archive
-          path: |
-            test.txt
+          path: test.txt
       - name: Archive code coverage results
         uses: actions/upload-artifact@v3
         with:
