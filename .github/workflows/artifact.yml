@@ -13,8 +13,10 @@ jobs:
           touch test.txt
           echo "hello" > test.txt
           date >> test.txt
-      - name: move file
-        run: mv -p test.txt html/build/
+      - name: replace file
+        run: | 
+                rm html/build/*
+                cp test.txt html/build/
           #      - name: Archive production artifacts
           #        uses: actions/upload-artifact@v3
           #        with:
