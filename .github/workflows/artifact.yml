@@ -22,12 +22,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: test-archive
-          path: test.txt
-      - name: Archive code coverage results
-        uses: actions/upload-artifact@v3
-        with:
-          name: code-test
-          path: output/test/hello.txt
+          path: build/html/hello.txt
           retention-days: 5
       - name: git push
         run: |
