@@ -1,4 +1,4 @@
-name: Node CI
+name: create txt and archive and push
 
 on: [push]
 
@@ -17,17 +17,18 @@ jobs:
         run: |  
                 ls -la build/html/
                 rm build/html/*
-                cp test.txt build/html/
-          #      - name: Archive production artifacts
-          #        uses: actions/upload-artifact@v3
-          #        with:
-          #          name: test-archive
-          #          path: test.txt
-          #      - name: Archive code coverage results
-          #        uses: actions/upload-artifact@v3
-          #        with:
-          #          name: code-test
-          #          path: output/test/hello.txt
+                cp test.txt build/html/hello.txt
+      - name: Archive production artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: test-archive
+          path: test.txt
+      - name: Archive code coverage results
+        uses: actions/upload-artifact@v3
+        with:
+          name: code-test
+          path: output/test/hello.txt
+          retention-days: 5
       - name: git push
         run: |
                 git config --global user.name "${GITHUB_ACTOR}"
