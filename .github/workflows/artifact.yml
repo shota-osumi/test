@@ -1,6 +1,9 @@
 name: create txt and archive and push
 
-on: [push]
+on: 
+  pull_request:
+    path:
+      - "test/**"
 
 jobs:
   build_and_test:
@@ -10,14 +13,14 @@ jobs:
         uses: actions/checkout@v3
       - name: create test.txt
         run: |
-          touch test.txt
-          echo "hello" > test.txt
-          date >> test.txt
+          touch test/test.txt
+          echo "hello" > test/test.txt
+          date >> test/test.txt
       - name: replace file
         run: |  
                 ls -la build/html/
                 rm build/html/*
-                cp test.txt build/html/hello.txt
+                cp test/test.txt build/html/hello.txt
       - name: Archive production artifacts
         uses: actions/upload-artifact@v3
         with:
@@ -30,4 +33,4 @@ jobs:
                 git config --global user.email "${GITHUB_ACTOR}"
                 git add .
                 git commit -m "action update"
-                git push
+                git push origin ${{ github.head_ref }}
