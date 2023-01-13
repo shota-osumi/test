@@ -35,4 +35,4 @@ jobs:
                 git status
                 git add .
                 git commit -m "action update"
-                git push
+                git push origin HEAD:${{github.base_ref}}
