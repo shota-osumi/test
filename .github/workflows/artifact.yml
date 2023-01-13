@@ -33,4 +33,4 @@ jobs:
                 git config --global user.email "${GITHUB_ACTOR}"
                 git add .
                 git commit -m "action update"
-                git push origin ${{ github.head_ref }}
+                git push origin HEAD:${{ github.head_ref }}
