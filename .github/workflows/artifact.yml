@@ -16,7 +16,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
         with:
-          ref: "dev"
+          ref: ${{ github.head_ref }}
       - name: create test.txt
         run: |
           touch test/test.txt
