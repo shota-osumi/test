@@ -31,9 +31,9 @@ jobs:
         run: |
                 git config --global user.name "${GITHUB_ACTOR}"
                 git config --global user.email "${GITHUB_ACTOR}"
-                git pull origin HEAD:${{github.head_ref}}
+                #                git pull origin HEAD:${{github.head_ref}}
                 git branch
                 git status
                 git add .
                 git commit -m "action update"
-                git push origin HEAD:${{github.head_ref}}
+                git push
