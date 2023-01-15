@@ -1,6 +1,10 @@
 name: create txt and archive and push
 
-on: [push]
+#on: [push]
+on: 
+  pull_request:
+    path:
+      - "test/**"
 
 jobs:
   build_and_test:
@@ -8,16 +12,18 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
+        with:
+          ref: "dev"
       - name: create test.txt
         run: |
-          touch test.txt
-          echo "hello" > test.txt
-          date >> test.txt
+          touch test/test.txt
+          echo "hello" > test/test.txt
+          date >> test/test.txt
       - name: replace file
         run: |  
                 ls -la build/html/
                 rm build/html/*
-                cp test.txt build/html/hello.txt
+                cp test/test.txt build/html/hello.txt
       - name: Archive production artifacts
         uses: actions/upload-artifact@v3
         with:
@@ -28,6 +34,9 @@ jobs:
         run: |
                 git config --global user.name "${GITHUB_ACTOR}"
                 git config --global user.email "${GITHUB_ACTOR}"
+                #                git pull origin HEAD:${{github.head_ref}}
+                git branch
+                git status
                 git add .
                 git commit -m "action update"
                 git push
