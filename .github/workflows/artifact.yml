@@ -10,10 +10,13 @@ jobs:
   build_and_test:
     runs-on: ubuntu-latest
     steps:
+      - name: check branch name
+        run: |
+               echo ${{ github.head_ref }} 
       - name: Checkout repository
         uses: actions/checkout@v3
         with:
-          ref: "dev"
+          ref: ${{ github.head_ref }}
       - name: create test.txt
         run: |
           touch test/test.txt
