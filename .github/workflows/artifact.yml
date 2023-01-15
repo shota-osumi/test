@@ -1,9 +1,9 @@
 name: create txt and archive and push
 
-on: 
-  pull_request:
-    path:
-      - "test/**"
+on: [push]
+#  pull_request:
+#    path:
+#      - "test/**"
 
 jobs:
   build_and_test:
