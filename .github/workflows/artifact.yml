@@ -49,15 +49,14 @@ jobs:
       #           git commit -m "action update"
       #           git push
 
-      # #masterへのマージでない場合はpublish/index.htmlをdevにpushしてbuild/html/index.htmlをgh-pagesで公開
-      # - name: publish docs to github pages
-      #   uses: peaceiris/actions-gh-pages@v3
-      #   if: ${{ success() && github.ref != 'refs/heads/master' }}
-      #   with:
-      #     github_token: ${{ secrets.GITHUB_TOKEN }}
-      #     publish_branch: dev
-      #     destination_dir:  build/html/
-      #     publish_dir: ./test
+      #masterへのマージでない場合はpublish/index.htmlをfeature-gh-pagesで公開
+      - name: publish docs to github pages
+        uses: peaceiris/actions-gh-pages@v3
+        if: ${{ success() && github.ref != 'refs/heads/master' }}
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: feature-gh-pages
+          publish_dir: ./publish
 
       #masterへのマージである場合はpublish/index.htmlをgh-pagesで公開
       - name: Deploy
