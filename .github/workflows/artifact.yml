@@ -20,7 +20,7 @@ jobs:
       - name: create index.html
         run: |
           touch test/index.html
-          echo "hello" > test/
+          echo "hello" > test/index.html
           date >> test/index.html
       # - name: replace file
       #   run: |  
