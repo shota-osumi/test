@@ -5,10 +5,10 @@ on:
     branches:
       - master
     path: 
-      - "test/**" 
+      - "publish/**" 
   pull_request:
     path:
-      - "test/**"
+      - "trigger/**"
 
 jobs:
   build_and_test:
@@ -17,25 +17,26 @@ jobs:
       - name: check branch name
         run: |
                echo ${{ github.head_ref }} 
+               echo ${{ github.ref }}
       - name: Checkout repository
         uses: actions/checkout@v3
         with:
           ref: ${{ github.head_ref }}
       - name: create index.html
         run: |
-          touch test/index.html
-          echo "hello" > test/index.html
-          date >> test/index.html
+          touch publish/index.html
+          echo "hello" > publish/index.html
+          date >> publish/index.html
       # - name: replace file
       #   run: |  
       #           ls -la build/html/
       #           rm build/html/*
-      #           cp test/index.html build/html/index.html
+      #           cp publish/index.html build/html/index.html
       - name: Archive production artifacts
         uses: actions/upload-artifact@v3
         with:
           name: test-archive
-          path: test/index.html
+          path: publish/index.html
           retention-days: 5
       # - name: git push
       #   run: |
@@ -48,7 +49,7 @@ jobs:
       #           git commit -m "action update"
       #           git push
 
-      # #masterへのマージでない場合はtest/index.htmlをdevにpushしてbuild/html/index.htmlをgh-pagesで公開
+      # #masterへのマージでない場合はpublish/index.htmlをdevにpushしてbuild/html/index.htmlをgh-pagesで公開
       # - name: publish docs to github pages
       #   uses: peaceiris/actions-gh-pages@v3
       #   if: ${{ success() && github.ref != 'refs/heads/master' }}
@@ -58,7 +59,7 @@ jobs:
       #     destination_dir:  build/html/
       #     publish_dir: ./test
 
-      #masterへのマージである場合はtest/index.htmlをgh-pagesで公開
+      #masterへのマージである場合はpublish/index.htmlをgh-pagesで公開
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         # If you're changing the branch from main,
@@ -68,4 +69,4 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_branch: gh-pages
-          publish_dir: ./test
+          publish_dir: ./publish
