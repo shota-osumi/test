@@ -4,10 +4,10 @@ on:
   push:
     branches:
       - master
-    path: 
-      - "publish/**" 
+    paths:
+      - "trigger/**"
   pull_request:
-    path:
+    paths:
       - "trigger/**"
 
 jobs:
