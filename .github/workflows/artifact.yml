@@ -59,7 +59,6 @@ jobs:
           publish_dir: ./publish
 
       - name: change gh-pages source to feature
-        uses: peaceiris/actions-gh-pages@v3
         if: ${{ success() && github.ref != 'refs/heads/master' }}
         run: |
           curl \
@@ -83,7 +82,6 @@ jobs:
           publish_dir: ./publish
 
       - name: change gh-pages source to stable
-        uses: peaceiris/actions-gh-pages@v3
         if: ${{ github.ref == 'refs/heads/master' }}
         run: |
           curl \
