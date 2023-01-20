@@ -13,8 +13,7 @@ on:
 jobs:
   build_and_test:
     runs-on: ubuntu-latest
-    permissions:
-      pages: write
+    permissions: read-all|write-all
     steps:
       - name: check branch name
         run: |
