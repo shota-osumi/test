@@ -13,7 +13,7 @@ on:
 jobs:
   build_and_test:
     runs-on: ubuntu-latest
-    permissions: write-all
+#    permissions: write-all
     steps:
       - name: check branch name
         run: |
@@ -28,33 +28,16 @@ jobs:
           touch publish/index.html
           echo "hello" > publish/index.html
           date >> publish/index.html
-      # - name: replace file
-      #   run: |  
-      #           ls -la build/html/
-      #           rm build/html/*
-      #           cp publish/index.html build/html/index.html
+
       - name: Archive production artifacts
         uses: actions/upload-artifact@v3
         with:
           name: test-archive
           path: publish/index.html
           retention-days: 5
-      # - name: git push
-      #   run: |
-      #           git config --global user.name "${GITHUB_ACTOR}"
-      #           git config --global user.email "${GITHUB_ACTOR}"
-      #           #                git pull origin HEAD:${{github.head_ref}}
-      #           git branch
-      #           git status
-      #           git add .
-      #           git commit -m "action update"
-      #           git push
-      - name: Get registration token
-        id: getRegToken
-        run: |
-          curl -X POST -H \"Accept: application/vnd.github.v3+json\"  -H 'Authorization: token ${{ secrets.GITHUB_TOKEN }}' https://api.github.com/repos/myprofile/myrepo/actions/runners/registration-token
+
       #masterへのマージでない場合はpublish/index.htmlをfeature-gh-pagesで公開
-      - name: publish docs to github pages
+      - name: publish docs to feature github pages
         uses: peaceiris/actions-gh-pages@v3
         if: ${{ success() && github.ref != 'refs/heads/master' }}
         with:
@@ -68,17 +51,14 @@ jobs:
           curl \
             -X PUT \
             -H "Accept: application/vnd.github+json" \
-            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}"\
+            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
             -H "X-GitHub-Api-Version: 2022-11-28" \
             https://api.github.com/repos/shota-osumi/test/pages \
             -d '{"source":{"branch":"feature-gh-pages","path":"/"}}'
 
       #masterへのマージである場合はpublish/index.htmlをgh-pagesで公開
-      - name: Deploy
+      - name: publish docs to stable github pages
         uses: peaceiris/actions-gh-pages@v3
-        # If you're changing the branch from main,
-        # also change the `main` in `refs/heads/main`
-        # below accordingly.
         if: ${{ github.ref == 'refs/heads/master' }}
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
@@ -91,7 +71,7 @@ jobs:
           curl \
             -X PUT \
             -H "Accept: application/vnd.github+json" \
-            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}"\
+            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
             -H "X-GitHub-Api-Version: 2022-11-28" \
             https://api.github.com/repos/shota-osumi/test/pages \
             -d '{"source":{"branch":"gh-pages","path":"/"}}'
